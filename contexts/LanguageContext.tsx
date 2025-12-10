@@ -7,11 +7,13 @@ type Language = 'en' | 'de';
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
+  toggleLanguage: () => void;          // add this
 }
 
 const LanguageContext = createContext<LanguageContextType>({
   language: 'en',
   setLanguage: () => {},
+  toggleLanguage: () => {},            // add this
 });
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
@@ -19,20 +21,22 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const saved = localStorage.getItem('language') as Language | null;
-    if (saved && (saved === 'en' || saved === 'de')) {
+    if (saved === 'en' || saved === 'de') {
       setLanguageState(saved);
     }
   }, []);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('language', lang);
-    }
+    localStorage.setItem('language', lang);
+  };
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'de' : 'en');
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage }}>
+    <LanguageContext.Provider value={{ language, setLanguage, toggleLanguage }}>
       {children}
     </LanguageContext.Provider>
   );
