@@ -10,7 +10,7 @@ interface LanguageContextType {
   toggleLanguage: () => void;          // add this
 }
 
-const LanguageContext = createContext<LanguageContextType>({
+const LanguageContext = createContext<LanguageContextType>({  
   language: 'en',
   setLanguage: () => {},
   toggleLanguage: () => {},            // add this
