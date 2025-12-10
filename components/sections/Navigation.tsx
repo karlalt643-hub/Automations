@@ -5,7 +5,7 @@ import { ArrowRight, CircuitBoard, Languages } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export function Navigation() {
-  const { language, setLanguage } = useLanguage();
+  const { language, toggleLanguage } = useLanguage();
 
   return (
     <nav className="container mx-auto px-6 py-6">
@@ -30,7 +30,7 @@ export function Navigation() {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setLanguage(language === 'en' ? 'de' : 'en')}
+            onClick={toggleLanguage}
             className="border-[#D4AF37]/50 text-[#D4AF37] hover:bg-[#D4AF37]/10 font-semibold"
           >
             <Languages className="mr-2 w-4 h-4" />
